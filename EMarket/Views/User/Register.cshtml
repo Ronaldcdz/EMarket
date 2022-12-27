@@ -1,0 +1,78 @@
+﻿@using EMarket.Core.Application.ViewModels.Users
+@model SaveUserViewModel
+@{
+    ViewData["Title"] = "Create User";
+}
+
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-6 offset-3">
+
+            <div class="card">
+
+                <div class="card-header bg-dark text-light">
+                    <h4>Creating a new user</h4>
+                </div>
+
+                <div class="card-body">
+
+                    <form method="post" asp-controller="User" asp-action="Register">
+
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label">Name:</label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label">Email:</label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Phone" class="form-label">Phone:</label>
+                            <input asp-for="Phone" class="form-control" />
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <p class="text-danger">@ViewBag.Error</p>
+                            <label asp-for="Username" class="form-label">Username:</label>
+                            <input asp-for="Username" class="form-control" />
+                            <span asp-validation-for="Username" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Password" class="form-label">Password:</label>
+                            <input asp-for="Password" class="form-control" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="ConfirmPassword" class="form-label">Confirm Password:</label>
+                            <input asp-for="ConfirmPassword" class="form-control" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+
+                        <input type="hidden" asp-for="Id" />
+                        <a asp-controller="User" asp-action="Index" class="btn btn-warning">Go back</a>
+
+                        <button type="submit" class="btn btn-primary">Save</button>
+
+                    </form>
+
+
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

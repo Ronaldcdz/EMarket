@@ -1,0 +1,33 @@
+﻿@using EMarket.Core.Application.ViewModels.Adverts
+@model SaveAdvertViewModel
+@{
+    ViewData["Title"] = "Delete Ad";
+}
+
+<div class="row">
+
+    <div class="col-6 offset-3">
+
+        <div class="card">
+            <div class="card-header bg-danger text-light">
+                <h4>Are you sure you want to delete "@Model.Name"</h4>
+                <img class="bd-placeholder-img card-img-top" src="@Model.ImagePath" />
+
+            </div>
+            <div class="card-body">
+
+                <form method="post" asp-controller="Advert" asp-action="DeletePost">
+
+                    <input type="hidden" asp-for="Id" />
+
+                    <a asp-controller="Advert" asp-action="Index" class="btn btn-warning">Cancel</a>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>

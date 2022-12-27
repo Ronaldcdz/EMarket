@@ -1,0 +1,95 @@
+﻿@using EMarket.Core.Application.ViewModels.Adverts;
+@using EMarket.Core.Application.ViewModels.Categories;
+@model List<AdvertViewModel>
+@{
+    ViewData["Title"] = "Adverts";
+}
+
+
+
+<div class="row">
+    <div class="col-3">
+        <div class="card shadow-sm mb-3">
+            <div class="card-header bg-dark text-light">
+                <h4>Filters</h4>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">Categories</h4>
+
+                <form method="post" asp-controller="Home" asp-action="Index">
+
+                    <div class="mb-3">
+                        <label for="advert-name" class="form-label" >Name:</label>
+                        <input type="text" name="AdvertName" id="advert-name" class="form-control" />
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" value="0" type="checkbox" name="CategoryListId" id="category-all" />
+                            <label class="form-check-label" for="category-all">All</label>
+                        </div>
+                    </div>
+
+                    @foreach (CategoryViewModel category in ViewBag.Categories) 
+                    {
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" value="@category.Id" type="checkbox" name="CategoryListId" id="category-@category.Id" />
+                                <label class="form-check-label" for="category-@category.Id">@category.Name</label>
+                            </div>
+                        </div>
+                    }
+
+                    <button type="submit" class="btn btn-primary">Filter</button>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-9">
+        <div class="row">
+
+            @if (Model == null || Model.Count == 0)
+            {
+
+                <h2>There is no existing or created Ads</h2>
+            }
+            else
+            {
+
+                @foreach (AdvertViewModel advert in Model)
+                {
+
+                    <div class="col-4">
+                        <div class="card shadow-sm mb-3">
+                            <img class="bd-placeholder-img card-img-top" src="@advert.ImagePath" />
+
+                            <div class="card-body">
+                                <h4>Name: @advert.Name</h4>
+                                <p class="card-text">Price: @advert.Price</p>
+                                <p class="card-text">Description: @advert.Description</p>
+                                <p class="card-text">Category: @advert.CategoryName</p>
+
+                                <a asp-controller="Home" asp-action="Details" asp-route-id="@advert.Id" asp-route-category="@advert.CategoryName" class="btn btn-info">Details</a>
+
+                             
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            }
+
+
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+</div>
+

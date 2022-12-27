@@ -1,0 +1,107 @@
+﻿@using EMarket.Core.Application.ViewModels.Adverts
+@model SaveAdvertViewModel
+@{
+    bool editMode = Model.Id == 0 ? false : true;
+    ViewData["Title"] = "Save Ad";
+}
+
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-6 offset-3">
+
+            <div class="card">
+
+                <div class="card-header bg-dark text-light">
+                    @if (editMode == true)
+                    {
+                        <h4>Editing the Advertisement: @Model.Name</h4>
+                    }
+                    else
+                    {
+                        <h4>Adding a new Advertisement</h4>
+
+                    }
+                </div>
+
+                <div class="card-body">
+
+                     @if (Model.Categories == null || Model.Categories.Count == 0)
+                    {
+                        <h4>You must have Categories created</h4>
+                        <a asp-controller="Advert" asp-action="Index" class="btn btn-warning">Go back</a>
+
+                    }
+                    else
+                    {
+                        @Html.ValidationSummary(false, "", new {@class = "text-danger"})
+
+                        <form method="post" enctype="multipart/form-data" asp-controller="Advert" asp-action="@(editMode ? "Edit" : "Create")">
+
+                            <div class="mb-3">
+                                <label asp-for="Name" class="form-label">Name:</label>
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Description" class="form-label">Description:</label>
+                                <textarea asp-for="Description" class="form-control"></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                @if (editMode)
+                                {
+                                    <img src="@Model.ImagePath" class="img-fluid"/>
+                                }
+                                <label asp-for="File" class="form-label">Image:</label>
+                                @if(editMode) {
+                                    <input asp-for="File" class="form-control" />
+                                }
+                                else{
+                                    <input asp-for="File" class="form-control" />
+                                }
+
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Price" class="form-label">Price:</label>
+                                <input asp-for="Price" class="form-control" type="number" min="1" step="any" />
+                                <span asp-validation-for="Price" class="text-danger"></span>
+
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="CategoryId" class="form-label">Category:</label>
+                                <select asp-for="CategoryId" asp-items="@(new SelectList(Model.Categories, "Id", "Name"))" class="form-select">
+                                    <option value="0" selected>Select one Category</option>
+                                </select>
+                                <span asp-validation-for="CategoryId" class="text-danger"></span>
+
+                            </div>
+
+
+                            
+
+                            <input type="hidden" asp-for="Id" />
+                            <a asp-controller="Advert" asp-action="Index" class="btn btn-warning">Go back</a>
+
+                            <button type="submit" class="btn btn-primary">Save</button>
+
+                        </form>
+
+                    }
+
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
